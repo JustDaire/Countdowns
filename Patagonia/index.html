@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion Countdown Widget</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background-color: transparent; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    .countdown-container { text-align: center; color: #37352f; }
+    @media (prefers-color-scheme: dark) { .countdown-container { color: rgba(255, 255, 255, 0.9); } }
+    .widget-title { font-size: 14px; font-weight: 500; margin-bottom: 12px; opacity: 0.6; letter-spacing: 0.5px; text-transform: uppercase; }
+    .timer-display { display: flex; gap: 15px; justify-content: center; }
+    .time-block { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
+    .number { font-size: 28px; font-weight: 600; line-height: 1; }
+    .label { font-size: 10px; text-transform: uppercase; opacity: 0.5; margin-top: 4px; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="countdown-container">
+    <div class="widget-title" id="event-title">COUNTDOWN TO TARGET</div>
+    <div class="timer-display">
+      <div class="time-block"><span class="number" id="days">00</span><span class="label">Days</span></div>
+      <div class="time-block"><span class="number" id="hours">00</span><span class="label">Hours</span></div>
+      <div class="time-block"><span class="number" id="minutes">00</span><span class="label">Mins</span></div>
+      <div class="time-block"><span class="number" id="seconds">00</span><span class="label">Secs</span></div>
+    </div>
+  </div>
+  <script>
+    // 1. SET YOUR TARGET DATE HERE (Format: YYYY-MM-DDTHH:MM:SS)
+    const targetDate = new Date("2027-01-24T13:00:00").getTime();
+    
+    // 2. SET YOUR WIDGET TITLE HERE
+    document.getElementById("event-title").innerText = "Patagonia";
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+      if (difference < 0) {
+        document.querySelector(".timer-display").innerHTML = "<span class='number' style='font-size: 20px;'>🎉 Event Started!</span>";
+        clearInterval(intervalId);
+        return;
+      }
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days.toString().padStart(2, '0');
+      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+    }
+    updateCountdown();
+    const intervalId = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
