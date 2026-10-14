@@ -11,7 +11,7 @@
       padding: 10px;
       background-color: transparent; 
       display: flex;
-      justify-content: center;
+      justify-content: right;
       align-items: center;
       height: 100vh;
       box-sizing: border-box;
@@ -27,7 +27,7 @@
 </head>
 <body>
   <div class="countdown-container">
-    <div class="widget-title" id="event-title">COUNTDOWN TO TARGET</div>
+    <!-- <div class="widget-title" id="event-title">COUNTDOWN TO TARGET</div> -->
     <div class="timer-display">
       <div class="time-block"><span class="number" id="days">00</span><span class="label">Days</span></div>
       <div class="time-block"><span class="number" id="hours">00</span><span class="label">Hours</span></div>
@@ -40,7 +40,7 @@
     const targetDate = new Date("2027-01-24T13:00:00").getTime();
     
     // 2. SET YOUR WIDGET TITLE HERE
-    document.getElementById("event-title").innerText = "Patagonia";
+    // document.getElementById("event-title").innerText = "Patagonia";
 
     function updateCountdown() {
       const now = new Date().getTime();
